@@ -12,6 +12,7 @@ import {
 import { PostService } from '../services/post.service';
 import { z } from 'zod';
 import { ZodValidationPipe } from '../../shared/pipe/zod-validation.pipe';
+import { ApiTags } from '@nestjs/swagger';
 
 const postSchema = z.object({
   title: z.string(),
@@ -22,6 +23,7 @@ const postSchema = z.object({
 
 type Post = z.infer<typeof postSchema>;
 
+@ApiTags('posts')
 @Controller('posts')
 export class PostController {
   constructor(private readonly postService: PostService) {}
