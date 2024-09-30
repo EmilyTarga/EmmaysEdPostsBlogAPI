@@ -2,6 +2,7 @@ import { IPost } from '../schemas/models/post.interface';
 
 export abstract class PostRepository {
   abstract getMainPosts(): Promise<IPost[]>;
+  abstract getPostsCount(): Promise<number>;
   abstract getAllPosts(limit: number, page: number): Promise<IPost[]>;
   abstract searchPosts(
     search: string,

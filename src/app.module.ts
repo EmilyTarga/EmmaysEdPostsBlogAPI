@@ -5,6 +5,7 @@ import { PostsModule } from './posts/posts.module';
 import { ConfigModule } from '@nestjs/config';
 import { MongooseModule } from '@nestjs/mongoose';
 import { JwtModule } from '@nestjs/jwt';
+import { UserModule } from './user/user.module';
 
 @Module({
   imports: [
@@ -12,12 +13,13 @@ import { JwtModule } from '@nestjs/jwt';
       isGlobal: true,
     }),
     MongooseModule.forRoot(process.env.MONGO_URI),
-    PostsModule,
     JwtModule.register({
       global: true,
       secret: process.env.JWT_SECRET,
       signOptions: { expiresIn: '10min' },
     }),
+    PostsModule,
+    UserModule,
   ],
   controllers: [AppController],
   providers: [AppService],

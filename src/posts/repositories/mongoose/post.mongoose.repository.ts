@@ -11,6 +11,10 @@ export class PostMongooseRepository implements PostRepository {
     return this.postModel.find().skip(0).limit(10).exec();
   }
 
+  getPostsCount(): Promise<number> {
+    return this.postModel.countDocuments().exec();
+  }
+
   getAllPosts(limit: number, page: number): Promise<IPost[]> {
     const offset = (page - 1) * limit;
 

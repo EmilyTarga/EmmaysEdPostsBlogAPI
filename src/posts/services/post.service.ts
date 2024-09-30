@@ -10,6 +10,10 @@ export class PostService {
     return this.postRepository.getMainPosts();
   }
 
+  async getPostsCount(): Promise<number> {
+    return this.postRepository.getPostsCount();
+  }
+
   async getAllPosts(limit: number, page: number): Promise<IPost[]> {
     return this.postRepository.getAllPosts(limit, page);
   }

@@ -7,12 +7,14 @@ import {
   Post,
   Put,
   Query,
+  // UseGuards,
   UsePipes,
 } from '@nestjs/common';
 import { PostService } from '../services/post.service';
 import { z } from 'zod';
 import { ZodValidationPipe } from '../../shared/pipe/zod-validation.pipe';
 import { ApiTags } from '@nestjs/swagger';
+//import { AuthGuard } from 'src/shared/guards/auth.guard';
 
 const postSchema = z.object({
   title: z.string(),
@@ -24,6 +26,7 @@ const postSchema = z.object({
 type Post = z.infer<typeof postSchema>;
 
 @ApiTags('posts')
+//@UseGuards(AuthGuard)
 @Controller('posts')
 export class PostController {
   constructor(private readonly postService: PostService) {}
@@ -31,6 +34,11 @@ export class PostController {
   @Get()
   async getMainPosts() {
     return this.postService.getMainPosts();
+  }
+
+  @Get('/count')
+  async getPostsCount() {
+    return this.postService.getPostsCount();
   }
 
   @Get('/admin')
