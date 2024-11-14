@@ -5,7 +5,11 @@ import { User } from '../../schemas/user.schema';
 import { Model } from 'mongoose';
 
 export class UserMongooseRepository implements UserRepository {
-  constructor(@InjectModel(User.name) private userModel: Model<User>) {}
+  constructor(@InjectModel(User.name) private userModel: Model<User>) { }
+
+  getUsers(fetchAdmin: boolean): Promise<IUser[]> {
+    return this.userModel.find({ IsAdmin: fetchAdmin }).skip(0).limit(10).exec();
+  }
 
   loginUser(user: string): Promise<IUser> {
     return this.userModel.findOne({ username: user }).exec();

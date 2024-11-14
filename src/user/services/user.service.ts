@@ -4,7 +4,7 @@ import { IUser } from '../schemas/models/user.interface';
 
 @Injectable()
 export class UserService {
-  constructor(private readonly userRepository: UserRepository) {}
+  constructor(private readonly userRepository: UserRepository) { }
 
   async loginUser(username: string): Promise<IUser> {
     const user = await this.userRepository.loginUser(username);
@@ -16,6 +16,11 @@ export class UserService {
     const user = await this.userRepository.getUser(userId);
     if (!user) throw new NotFoundException('User Not Found');
     return user;
+  }
+
+  async getUsers(fetchAdmin: boolean): Promise<IUser[]> {
+    const users = await this.userRepository.getUsers(fetchAdmin);
+    return users;
   }
 
   async createUser(user: IUser): Promise<void> {

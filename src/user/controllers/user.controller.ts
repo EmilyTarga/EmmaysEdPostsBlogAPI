@@ -37,7 +37,7 @@ export class UserController {
   constructor(
     private readonly userService: UserService,
     private jwtService: JwtService,
-  ) {}
+  ) { }
 
   @Post('/login')
   async loginUser(@Body() { username, password }: Login) {
@@ -60,6 +60,11 @@ export class UserController {
   @Get(':userId')
   async getUser(@Param('userId') userId: string) {
     return this.userService.getUser(userId);
+  }
+
+  @Get()
+  async getUsers() {
+    return this.userService.getUsers(true);
   }
 
   @UsePipes(new ZodValidationPipe(userSchema))
